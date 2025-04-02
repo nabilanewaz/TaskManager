@@ -7,12 +7,12 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://nabilanewaz:nabilanewaz12345@cluster0.6qswc31.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+mongoose.connect('mongodb+srv://nabilanewaz:nabilanewaz12345@cluster0.6qswc31.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log(err));
+
+// Import routes
+app.use('/api/auth', require('./routes/auth'));
 
 app.get('/', (req, res) => {
   res.send('Task Manager');

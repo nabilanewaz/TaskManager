@@ -273,29 +273,65 @@ function App() {
             </select>
           </div>
           {renderFilters()}
+
           <div className="task-form">
-            <h2>Add New Task</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Title"
-                value={newTask.title}
-                onChange={(e) => setNewTask({...newTask, title: e.target.value})}
-              />
-              <input
-                type="text"
-                placeholder="Description"
-                value={newTask.description}
-                onChange={(e) => setNewTask({...newTask, description: e.target.value})}
-              />
-              <input
-                type="date"
-                value={newTask.dueDate}
-                onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
-              />
-              <button type="submit">Add Task</button>
-            </form>
-          </div>
+  <h2>Add New Task</h2>
+  <form onSubmit={handleSubmit}>
+    <input
+      type="text"
+      placeholder="Title"
+      value={newTask.title}
+      onChange={(e) =>
+        setNewTask({ ...newTask, title: e.target.value })
+      }
+    />
+    <input
+      type="text"
+      placeholder="Description"
+      value={newTask.description}
+      onChange={(e) =>
+        setNewTask({ ...newTask, description: e.target.value })
+      }
+    />
+    <input
+      type="date"
+      value={newTask.dueDate}
+      onChange={(e) =>
+        setNewTask({ ...newTask, dueDate: e.target.value })
+      }
+    />
+
+    {/* Priority Drop-down */}
+    <select
+      value={newTask.priority}
+      onChange={(e) =>
+        setNewTask({ ...newTask, priority: e.target.value })
+      }
+    >
+      <option value="">Select Priority</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+
+    {/* Categories Drop-down */}
+    <select
+      value={newTask.category}
+      onChange={(e) =>
+        setNewTask({ ...newTask, category: e.target.value })
+      }
+    >
+      <option value="">Select Category</option>
+      <option value="Work">Work</option>
+      <option value="Personal">Personal</option>
+      <option value="Errands">Errands</option>
+      {/* Add more category options as needed */}
+    </select>
+
+    <button type="submit">Add Task</button>
+  </form>
+</div>
+
 
           <div className="tasks-list">
             <h2>Your Tasks</h2>

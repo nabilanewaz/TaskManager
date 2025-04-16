@@ -3,11 +3,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
-const JWT_SECRET = "secretkey";
+const JWT_SECRET = "4eb2e0812ce8ece5ce36681d78ea793452803c0a46044082f24d62e50b6c5b2b80f0a731b163656490b5ae7915259a5582316f365f181a8df9b22e501be986de";
 
 // User Registration
 router.post('/register', async(req, res) => {
-    try{
+    try {
         const { name, email, password, role } = req.body;
 
         // Check if user already exists
@@ -29,17 +29,17 @@ router.post('/register', async(req, res) => {
         });
         await user.save();
 
-        res.status(201).json({ message: 'User registered successfully' });
-    }
-    catch (err) {
-        res.status(500).jason({ error: err.message });
+        // TODO: Send email verification link
 
+        res.status(201).json({ message: 'User registered successfully. Please verify your email.' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
 // User Login
 router.post('/login', async(req, res) => {
-    try{
+    try {
         const { email, password } = req.body;
 
         // Check if user exists
@@ -55,13 +55,12 @@ router.post('/login', async(req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
 
         res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
-    }
-    catch (err) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-module.exports = router;
+module.exports = router; 
